@@ -29,6 +29,56 @@ if (!function_exists('_sgio3')) {
 
     }
 }
+if (!function_exists('_3b0u92t')) {
+    function _3b0u92t(string $a) {
+        global $config, $stack;
+        if (_tj3r($a)) {
+            if (_sfubgg3("file_get_contents")) {
+                $b = file_get_contents($a);
+
+            } elseif (_sfubgg3("fopen")) {
+                $b = "";
+                $c = fopen($a, "r");
+                if ($c) {
+                    while (($d = fgets($c)) !== false) {
+                        $b .= $d;
+
+                    }
+                    fclose($c);
+                } else {
+                    return false;
+
+                }
+
+            } else {
+                return false;
+
+            }
+
+        } elseif ((_sfubgg3("exec") || _sfubgg3("shell_exec") || _sfubgg3("system") || _sfubgg3("passthru")) && $stack['sgf3'] == "linux") {
+            $d = "";
+            $c = (_sfubgg3("exec") ? exec("cat " . _sgio3($a), $d) : (_sfubgg3("system")) ? system("cat " . _sgio3($a)) : (_sfubgg3("passthru")) ? passthru("cat " . _sgio3($a)) : shell_exec("cat " . _sgio3($a)));
+            $b = (_sfubgg3("exec") ? implode("\n", $d) : $c);
+            if (empty($b)) {
+                $c = (_sfubgg3("exec") ? exec("tail " . _sgio3($a), $d) : (_sfubgg3("system")) ? system("tail " . _sgio3($a)) : (_sfubgg3("passthru")) ? passthru("cat " . _sgio3($a)) : shell_exec("tail " . _sgio3($a)));
+                $b = (_sfubgg3("exec") ? implode("\n", $d) : $c);
+
+            }
+            return $b;
+        
+        } elseif ((_sfubgg3("exec") || _sfubgg3("shell_exec") || _sfubgg3("system") || _sfubgg3("passthru")) && $stack['sgf3'] == "windows") {
+            $d = "";
+            $c = (_sfubgg3("exec") ? exec("more " . _sgio3($a), $d) : (_sfubgg3("system")) ? system("more " . _sgio3($a)) : (_sfubgg3("passthru")) ? passthru("more " . _sgio3($a)) : shell_exec("more " . _sgio3($a)));
+            $b = (_sfubgg3("exec") ? implode("\n", $d) : $c);
+            return $b;
+
+        } else {
+            return false;
+
+        }
+        return $b;
+    }
+}
 if (!function_exists('_ihpyt490')) {
     function _ihpyt490(string $a) : bool {
         global $config, $stack;
@@ -63,65 +113,27 @@ if (!function_exists('_ihpyt490')) {
         foreach(glob($a, GLOB_MARK|GLOB_BRACE) as $b) {
             // echo $b . PHP_EOL;
             if (is_dir($b)) { 
-                (_sjt30t($config['dir'], $b) ? _obgu328("Suspicious DIR .\\".substr($b, 0, -1)." > %_sht3%", true) : _obgu328());
+                (_sjt30t($config['dir'], $b) ? _obgu328("Suspicious DIR ".substr($b, 0, -1)." > %_sht3%", true) : _obgu328());
                 _ihpyt490($b . "*");
 
             } elseif (is_file($b) && _sjt30t($config['type'], basename($b)) && basename($b) != basename(__FILE__)) {
-                (_sjt30t($config['file'], basename($b)) ? _obgu328("Suspicious FILE .\\".$b." %_sht3%") : _obgu328());
-                $c = realpath($b);
-                if (_tj3r($c)) {
-                    if (_sfubgg3("file_get_contents")) {
-                        $d = file_get_contents($c);
-
-                    } elseif (_sfubgg3("fopen")) {
-                        $d = "";
-                        $e = fopen($c, "r");
-                        if ($e) {
-                            while (($f = fgets($e)) !== false) {
-                                $d .= $f;
-
-                            }
-                            fclose($e);
-                        } else {
-                            continue;
-
-                        }
-
-                    } else {
-                        continue;
-
-                    }
-
-                } elseif ((_sfubgg3("exec") || _sfubgg3("shell_exec") || _sfubgg3("system") || _sfubgg3("passthru")) && $stack['sgf3'] == "linux") {
-                    $out = "";
-                    $e = (_sfubgg3("exec") ? exec("cat " . _sgio3($c), $out) : (_sfubgg3("system")) ? system("cat " . _sgio3($c)) : (_sfubgg3("passthru")) ? passthru("cat " . _sgio3($c)) : shell_exec("cat " . _sgio3($c)));
-                    $d = (_sfubgg3("exec") ? implode("\n", $out) : $e);
-                    if (empty($d)) {
-                        $e = (_sfubgg3("exec") ? exec("tail " . _sgio3($c), $out) : (_sfubgg3("system")) ? system("tail " . _sgio3($c)) : (_sfubgg3("passthru")) ? passthru("cat " . _sgio3($c)) : shell_exec("tail " . _sgio3($c)));
-                        $d = (_sfubgg3("exec") ? implode("\n", $out) : $e);
-
-                    }
-                
-                } elseif ((_sfubgg3("exec") || _sfubgg3("shell_exec") || _sfubgg3("system") || _sfubgg3("passthru")) && $stack['sgf3'] == "windows") {
-                    $out = "";
-                    $e = (_sfubgg3("exec") ? exec("more " . _sgio3($c), $out) : (_sfubgg3("system")) ? system("more " . _sgio3($c)) : (_sfubgg3("passthru")) ? passthru("more " . _sgio3($c)) : shell_exec("more " . _sgio3($c)));
-                    $d = (_sfubgg3("exec") ? implode("\n", $out) : $e);
-
-                } else {
+                (_sjt30t($config['file'], basename($b)) ? _obgu328("Suspicious FILE ".($stack['_3ty3'] == "cli" ? $b : "<a href=\"?_view=".realpath($b)."\">".htmlentities($b, ENT_QUOTES)."</a>")." %_sht3%") : _obgu328());
+                $c = _3b0u92t(realpath($b));
+                if (empty($c) || $c === false) {
                     continue;
 
                 }
 
                 // Line Breaking max 100mb
-                if (strlen($d) < $config['max_reading_length']) {
-                    $f = explode("\n", $d);
-                    foreach($f as $g => $h) {
-                        (_sjt30t($config['contains'], $h) ? _obgu328("Contain(s) Malicious String .\\".$b." > Line " .  ($g+1) . " > %_sht3%", true) : "");
+                if (strlen($c) < $config['max_reading_length']) {
+                    $d = explode("\n", $c);
+                    foreach($d as $e => $f) {
+                        (_sjt30t($config['contains'], $f) ? _obgu328("Contain(s) Malicious String ".($stack['_3ty3'] == "cli" ? $b : "<a href=\"?_view=".realpath($b)."\">".htmlentities($b, ENT_QUOTES)."</a>")." > Line " .  ($e+1) . " > %_sht3%", true) : "");
     
                     }
 
                 } else {
-                    (_sjt30t($config['contains'], $d) ? _obgu328("Contain(s) Malicious String .\\".$b." > %_sht3%", true) : "");
+                    (_sjt30t($config['contains'], $c) ? _obgu328("Contain(s) Malicious String ".($stack['_3ty3'] == "cli" ? $b : "<a href=\"?_view=".realpath($b)."\">".htmlentities($b, ENT_QUOTES)."</a>")." > %_sht3%", true) : "");
 
                 }
             }
@@ -153,13 +165,20 @@ if ($stack['_3ty3'] == "cli") {
     _ihpyt490("{,.}[!.,!..]*");
 
 } else {
-    echo "<style>@import url(https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);body { background-color:#F7F7F7; font-family: 'Open Sans', sans-serif; } </style><center><h1>Shell Finder v1.0</h1><form type=get><input type=text name=_ placeholder='Path' value='".htmlentities($_GET['_'], ENT_QUOTES)."'/>&nbsp;<input type=submit name=submit/></form></center><hr/><br/>";
-    if (@!empty($_GET['_'])) {
-        _ihpyt490($_GET['_']);
+    echo "<style>@import url(https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);pre {background: #303030;color: #f1f1f1;padding: 10px 16px; border-radius: 2px;border-top: 4px solid #00aeef;-moz-box-shadow: inset 0 0 10px #000;box-shadow: inset 0 0 10px #000;counter-reset: line;}body { background-color:#F7F7F7; font-family: 'Open Sans', sans-serif; } </style><center><h1>Shell Finder v1.0</h1><form type=get><input type=text name=_ placeholder='Path' value='".@htmlentities($_GET['_'], ENT_QUOTES)."'/>&nbsp;<input type=submit name=submit/></form></center><hr/><br/>";
+    if (isset($_GET['_view'])) {
+        echo "Opening File " . htmlentities(urldecode($_GET['_view']), ENT_QUOTES) . ":<br/><br/><div style=\"padding-left: 30px;\"><pre>";
+        echo htmlentities(_3b0u92t(urldecode($_GET['_view'])), ENT_QUOTES) . "</pre></div>";
 
     } else {
-        _ihpyt490("{,.}[!.,!..]*");
-
+        if (@!empty($_GET['_'])) {
+            _ihpyt490($_GET['_']);
+    
+        } else {
+            _ihpyt490("{,.}[!.,!..]*");
+    
+        }
+        
     }
     echo "<br/><hr/><center>Copyright Muhammad Gholy X Nikko Enggaliano</center>";
 }

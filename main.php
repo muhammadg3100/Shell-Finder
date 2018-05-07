@@ -12,25 +12,25 @@ $config['max_reading_length'] = (1000 * 100); // 100MB
 // Configuratoin
 $stack = array();
 if (!function_exists('_sfubgg3')) {
-    function _sfubgg3(string $a) : bool {
+    function _sfubgg3($a) {
         return (function_exists($a) ? !in_array($a, explode(',', ini_get('disable_functions'))) : false);
 
     }
 }
 if (!function_exists('_tj3r')) {
-    function _tj3r(string $a)  : bool {
+    function _tj3r($a) {
         return (_sfubgg3("is_readable") ? (is_readable($a) ? true : false) : false);
 
     }
 }
 if (!function_exists('_sgio3')) {
-    function _sgio3(string $a)  : bool {
+    function _sgio3($a) {
         return (_sfubgg3('escapeshellarg') ? escapeshellarg($a) : "'".str_replace("'", "\'", $a)."'");
 
     }
 }
 if (!function_exists('_3b0u92t')) {
-    function _3b0u92t(string $a) {
+    function _3b0u92t($a) {
         global $config, $stack;
         if (_tj3r($a)) {
             if (_sfubgg3("file_get_contents")) {
@@ -80,10 +80,10 @@ if (!function_exists('_3b0u92t')) {
     }
 }
 if (!function_exists('_ihpyt490')) {
-    function _ihpyt490(string $a) : bool {
+    function _ihpyt490($a) {
         global $config, $stack;
         if (!function_exists('_obgu328')) {
-            function _obgu328($a = "", $b = false) : bool{
+            function _obgu328($a = "", $b = false){
                 global $stack, $config;
                 if (empty($a)) return false;
                 echo "[X] " .preg_replace_callback('/\%(.*?)\%/', function($a) use ($stack, $config, $b) {
@@ -95,7 +95,7 @@ if (!function_exists('_ihpyt490')) {
 
         }
         if (!function_exists('_sjt30t')) {
-            function _sjt30t($a = array(), $b = "") : bool {
+            function _sjt30t($a = array(), $b = "") {
                 global $stack, $config;
                 if (empty($a) || empty($b)) return false;
                 unset($stack['_sht3']);

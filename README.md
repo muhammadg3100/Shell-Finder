@@ -1,4 +1,4 @@
-# Shell-Finder
+# Shell Finder
 Shell Finder that works with CLI / Web site, Its for checking all of your files wether it contains malicious code or not.
 
 Usage:

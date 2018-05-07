@@ -165,9 +165,9 @@ if ($stack['_3ty3'] == "cli") {
     _ihpyt490("{,.}[!.,!..]*");
 
 } else {
-    echo "<style>@import url(https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);pre {background: #303030;color: #f1f1f1;padding: 10px 16px; border-radius: 2px;border-top: 4px solid #00aeef;-moz-box-shadow: inset 0 0 10px #000;box-shadow: inset 0 0 10px #000;counter-reset: line;}body { background-color:#F7F7F7; font-family: 'Open Sans', sans-serif; } </style><center><h1>Shell Finder v1.0</h1><form type=get><input type=text name=_ placeholder='Path' value='".@htmlentities($_GET['_'], ENT_QUOTES)."'/>&nbsp;<input type=submit name=submit/></form></center><hr/><br/>";
+    echo "<html><head><title>Shell Finder</title><style>@import url(https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);pre {background: #303030;color: #f1f1f1;padding: 10px 16px; border-radius: 2px;border-top: 4px solid #00aeef;-moz-box-shadow: inset 0 0 10px #000;box-shadow: inset 0 0 10px #000;counter-reset: line;}body { background-color:#F7F7F7; font-family: 'Open Sans', sans-serif; } </style></head><body><center><h1>Shell Finder v1.0</h1><form type=get><input type=text name=_ placeholder='Path' value='".@htmlentities($_GET['_'], ENT_QUOTES)."'/>&nbsp;<input type=submit name=submit/></form></center><hr/><br/>";
     if (isset($_GET['_view'])) {
-        echo "Opening File " . htmlentities(urldecode($_GET['_view']), ENT_QUOTES) . ":<br/><br/><div style=\"padding-left: 30px;\"><pre>";
+        echo "Opening File " . htmlentities(urldecode($_GET['_view']), ENT_QUOTES) . ":<br/><br/><div style=\"padding-left: 30px;padding-right: 30px;\"><pre>";
         echo htmlentities(_3b0u92t(urldecode($_GET['_view'])), ENT_QUOTES) . "</pre></div>";
 
     } else {
@@ -180,6 +180,6 @@ if ($stack['_3ty3'] == "cli") {
         }
         
     }
-    echo "<br/><hr/><center>Copyright Muhammad Gholy X Nikko Enggaliano</center>";
+    echo "<br/><hr/><center>Copyright Muhammad Gholy X Nikko Enggaliano</center></body></head>";
 }
 ?>

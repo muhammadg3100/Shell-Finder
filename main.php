@@ -161,7 +161,7 @@ if (_sfubgg3('php_sapi_name')) {
     
 }
 if ($stack['_3ty3'] == "cli") {
-    echo "Shell Finder v1.0 | Muhammad Gholy X Nikko Enggaliano" . PHP_EOL . str_repeat("-", 50) . PHP_EOL . PHP_EOL;
+    echo "Shell Finder v1.0 | Muhammad Gholy X Nikko Enggaliano" . PHP_EOL . "If there's no other line, then there's nothing detected in this entire directory." . PHP_EOL . str_repeat("-", 50) . PHP_EOL . PHP_EOL;
     _ihpyt490("{,.}[!.,!..]*");
 
 } else {
